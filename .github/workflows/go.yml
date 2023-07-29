@@ -62,5 +62,5 @@ jobs:
         go-version: 1.19
 
     - name: Test `go fmt && go generate` on Go 1.19 creates no diffs
-      run: go fmt && go generate && git diff --exit-code
+      run: cd ./cmd/gismeteo-cli && go fmt && go generate && git diff --exit-code
 
