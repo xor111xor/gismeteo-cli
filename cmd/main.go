@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"github.com/olekukonko/tablewriter"
 	"github.com/xor111xor/gismeteo-cli/internal/requests"
@@ -8,6 +9,20 @@ import (
 )
 
 func main() {
+	flag.Usage = func() {
+		fmt.Fprintf(os.Stderr, "Cli tool for get weather \n")
+		flag.PrintDefaults()
+	}
+	flagVersion := flag.Bool("v", false, "show version")
+	flag.Parse()
+
+	var AppVersion string
+
+	if *flagVersion {
+		fmt.Println(AppVersion)
+		os.Exit(0)
+	}
+
 	url := "https://xml.meteoservice.ru/export/gismeteo/point/9615.xml"
 
 	weather, err := requests.GetWeather(url)
