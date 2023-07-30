@@ -1,16 +1,23 @@
 package requests
 
 import (
+	"context"
 	"encoding/xml"
 	"fmt"
 	"github.com/xor111xor/gismeteo-cli/internal/models"
 	"io"
 	"net/http"
+	"time"
 )
 
 func GetWeather(url string) (models.Mmweather, error) {
+	ctx, close := context.WithTimeout(context.Background(), time.Second*5)
+	defer close()
+
 	var weather models.Mmweather
-	res, err := http.Get(url)
+
+	req, _ := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
+	res, err := http.DefaultClient.Do(req)
 	if err != nil {
 		fmt.Println(err)
 		return weather, err
