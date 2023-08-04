@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"os"
 )
 
@@ -11,14 +12,17 @@ type Conf struct {
 	Url string
 }
 
-func (t *Conf) GetUrl(path string) string {
+func (t *Conf) GetUrl(path string, in io.Reader) string {
+	if in == nil {
+		in = os.Stdin
+	}
 
 	if _, err := os.Stat(path); errors.Is(err, os.ErrNotExist) {
 		fmt.Printf("Configuration file %v does not exist.\n"+
 			"Open https://meteodays.com/en/content/export.\n"+
 			"And generate url for your location:\nurl: ", path)
 
-		fmt.Scan(&t.Url)
+		fmt.Fscan(in, &t.Url)
 
 		file, _ := json.Marshal(t)
 

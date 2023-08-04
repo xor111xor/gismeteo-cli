@@ -29,9 +29,9 @@ func main() {
 
 	config := fmt.Sprint(os.ExpandEnv(*flagConfig))
 
-	// Compute data
+	// Get data
 	myConf := new(configs.Conf)
-	myConf.GetUrl(config)
+	myConf.GetUrl(config, nil)
 
 	weather, err := requests.GetWeather(myConf.Url)
 	if err != nil {
