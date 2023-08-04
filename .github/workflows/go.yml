@@ -26,4 +26,4 @@ jobs:
       run: go build -v ./cmd/gismeteo-cli
 
     - name: Test
-      run: go test -v ./cmd/gismeteo-cli
+      run: go test -v ./...
