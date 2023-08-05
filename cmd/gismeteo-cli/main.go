@@ -17,7 +17,7 @@ func main() {
 		flag.PrintDefaults()
 	}
 	flagVersion := flag.Bool("v", false, "show version")
-	flagConfig := flag.String("config", "$HOME/.config/weather-cli.json", "set configuration file")
+	flagConfig := flag.String("config", "$HOME/.config/gismeteo-cli.json", "set configuration file")
 	flag.Parse()
 
 	var AppVersion string
